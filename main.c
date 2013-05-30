@@ -66,7 +66,6 @@ int whattype(int ch)
  * 			0		Is a whitespace.
  */
 
-
 int whattoken(char *token)
 {
 	int i, chartype, prevchartype;
@@ -87,12 +86,16 @@ int whattoken(char *token)
 			}
 		}
 		ptr=token;
+
 		while(*ptr!='\0')
 		{
 			i=whattype(*ptr);
-			if(i!=1&&i!=2)
+			if(i!=2&&i!=3)
 				return 0;							//Unidentified expr.
+//			printf("while");
+			ptr++;
 		}
+
 	}
 	return 1;										//An identifier.
 }
@@ -172,7 +175,7 @@ int main(int argc, char *argv[])
 			}
 
 		}
-*/
+*
 		while(*ptr!=EOF)
 		{
 			i=0;
@@ -205,6 +208,30 @@ int main(int argc, char *argv[])
 //				printf("\nInvalid token: %s", token);
 			}
 		}
-
+*/
+		strcpy(sc, "if this is so then do this");
+		ptr=sc;
+		while(*ptr!='\0')
+		{
+			i=0;
+                        if(whattype(*ptr)==2)
+                        {
+                                token[i++]=*ptr++;
+                                while((whattype(*ptr)==2||whattype(*ptr)==3)&&(*ptr!='\0'))
+                                {
+                                        token[i++]=*ptr++;
+                                }
+                                token[i]='\0';
+                                printf("\n\nValid token: %s, of type %d\n", token, whattoken(token));
+                        }
+                        i=0;
+                        if(whattype(*ptr)!=2)
+                        {
+                                while(whattype(*ptr)!=19&&whattype(*ptr)!=0&&whattype(*ptr)!=5&&whattype(*ptr)!=7&&(*ptr!='\0'))
+                                        ptr++;
+			}
+			if(whattype(*ptr)!=2&&(*ptr!='\0'))
+				ptr++;
+		}
 		return 0;
 }
